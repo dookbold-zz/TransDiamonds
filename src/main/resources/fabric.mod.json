@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "trans_diamonds",
+  "version": "${version}",
+  "name": "TransDiamonds",
+  "description": "Trans rights! ",
+  "license": "GNU LGPL v3",
+  "icon": "assets/transdiamonds/textures/item/trans_diamond.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.github.dookbold.transdiamonds.TransDiamonds"
+    ]
+  },
+  "mixins": [
+    "transdiamonds.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.8.2+build.194",
+    "fabric": "*",
+    "minecraft": "1.15.2  "
+  }
+}
