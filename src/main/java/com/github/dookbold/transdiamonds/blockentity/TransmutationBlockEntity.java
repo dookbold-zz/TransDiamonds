@@ -33,7 +33,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.DefaultedList;
 
 public class TransmutationBlockEntity extends BlockEntity implements ImplementedInventory {
-    private final DefaultedList<ItemStack> ITEMS = DefaultedList.ofSize(3, ItemStack.EMPTY);
+    private final DefaultedList<ItemStack> ITEMS = DefaultedList.ofSize(4, ItemStack.EMPTY);
     public TransmutationBlockEntity() {
         super(TransBlockEntityRegistration.TRANSMUTATION_BLOCK_ENTITY);
     }
