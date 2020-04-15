@@ -22,18 +22,26 @@
  * SOFTWARE.
  */
 
-package com.github.dookbold.transdiamonds.items.trans;
+package com.github.dookbold.transdiamonds.gui;
 
-import com.github.dookbold.transdiamonds.items.MaterialBase;
-import com.github.dookbold.transdiamonds.registry.TransItemRegistration;
-import net.minecraft.recipe.Ingredient;
+import io.github.cottonmc.cotton.gui.CottonCraftingController;
+import io.github.cottonmc.cotton.gui.widget.WGridPanel;
+import io.github.cottonmc.cotton.gui.widget.WItemSlot;
+import net.minecraft.container.BlockContext;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.recipe.RecipeType;
 
-public class TransMaterial extends MaterialBase {
-    public TransMaterial() {
-        super(Ingredient.ofItems(TransItemRegistration.TRANS_DIAMOND));
+public class TransmutationBlockController extends CottonCraftingController {
+    public TransmutationBlockController(int syncId, PlayerInventory inventory, BlockContext context) {
+        super(RecipeType.SMELTING, syncId, inventory, getBlockInventory(context), getBlockPropertyDelegate(context));
+
+        WGridPanel root = new WGridPanel();
+        setRootPanel(root);
+        root.setSize(200,100);
+        WItemSlot itemSlot = WItemSlot.of(blockInventory, 0);
+        root.add(itemSlot, 4, 1);
+        root.validate(this);
+
     }
-    @Override
-    public Ingredient getRepairIngredient() {
-        return Ingredient.ofItems(TransItemRegistration.TRANS_DIAMOND);
-    }
+
 }

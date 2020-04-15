@@ -22,40 +22,13 @@
  * SOFTWARE.
  */
 
-package com.github.dookbold.transdiamonds.blockentity;
+package com.github.dookbold.transdiamonds.gui;
 
-import com.github.dookbold.transdiamonds.registry.TransBlockEntityRegistration;
-import net.minecraft.block.entity.BlockEntity;
+import io.github.cottonmc.cotton.gui.client.CottonInventoryScreen;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventories;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.DefaultedList;
 
-public class TransmutationBlockEntity extends BlockEntity implements ImplementedInventory {
-    private final DefaultedList<ItemStack> ITEMS = DefaultedList.ofSize(3, ItemStack.EMPTY);
-    public TransmutationBlockEntity() {
-        super(TransBlockEntityRegistration.TRANSMUTATION_BLOCK_ENTITY);
-    }
-    @Override
-    public DefaultedList<ItemStack> getItems() {
-        return ITEMS;
-    }
-    @Override
-    public void fromTag(CompoundTag tag) {
-        super.fromTag(tag);
-        Inventories.fromTag(tag,ITEMS);
-    }
-
-    @Override
-    public CompoundTag toTag(CompoundTag tag) {
-        Inventories.toTag(tag,ITEMS);
-        return super.toTag(tag);
-    }
-
-    @Override
-    public boolean canPlayerUseInv(PlayerEntity player) {
-        return pos.isWithinDistance(player.getBlockPos(), 4.5);
+public class TransmutationBlockScreen extends CottonInventoryScreen<TransmutationBlockController> {
+    public TransmutationBlockScreen(TransmutationBlockController container, PlayerEntity player) {
+        super(container, player);
     }
 }
-

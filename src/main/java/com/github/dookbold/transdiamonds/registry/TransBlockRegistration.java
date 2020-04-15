@@ -37,7 +37,7 @@ import net.minecraft.util.registry.Registry;
 
 public class TransBlockRegistration {
     public static final Block TRANS_DIAMOND_BLOCK = register(new Block(FabricBlockSettings.of(Material.METAL)
-            .strength(5.0F, 6.0F).sounds(BlockSoundGroup.METAL)
+            .strength(5.0F, 6.0F).sounds(BlockSoundGroup.GLASS)
             .breakByHand(false).breakByTool(FabricToolTags.PICKAXES, 3)
             .lightLevel(6).build()), "trans_diamond_block");
     public static final Block TRANSMUTATION_BLOCK = register(new TransmutationBlock(FabricBlockSettings.of(Material.METAL)

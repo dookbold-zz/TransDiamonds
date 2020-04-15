@@ -26,29 +26,18 @@ package com.github.dookbold.transdiamonds;
 
 import com.github.dookbold.transdiamonds.blocks.TransmutationBlock;
 import com.github.dookbold.transdiamonds.gui.TransmutationBlockController;
-import com.github.dookbold.transdiamonds.registry.TransBlockRegistration;
-import com.github.dookbold.transdiamonds.registry.TransItemRegistration;
-import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
-import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
+import com.github.dookbold.transdiamonds.gui.TransmutationBlockScreen;
+import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.screen.ScreenProviderRegistry;
 import net.minecraft.container.BlockContext;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
-public class TransDiamonds implements ModInitializer {
-    public static final String MOD_ID = "trans_diamonds";
-    public static final Logger LOGGER = LogManager.getLogger();
-    public static final ItemGroup TRANS_GROUP = FabricItemGroupBuilder.create(
-            new Identifier(MOD_ID, "general"))
-            .icon(() -> new ItemStack(TransItemRegistration.TRANS_DIAMOND))
-            .build();
+public class TransDiamondsClient implements ClientModInitializer {
+    @Environment(EnvType.CLIENT)
     @Override
-    public void onInitialize() {
-        TransItemRegistration.init();
-        TransBlockRegistration.init();
-        ContainerProviderRegistry.INSTANCE.registerFactory(TransmutationBlock.IDENTIFIER, (syncId, id, player, buf) -> new TransmutationBlockController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())));
+    public void onInitializeClient() {
+        ScreenProviderRegistry.INSTANCE.registerFactory(TransmutationBlock.IDENTIFIER, (syncId, identifier, player, buf) ->
+                new TransmutationBlockScreen(new TransmutationBlockController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())), player));
     }
 }
