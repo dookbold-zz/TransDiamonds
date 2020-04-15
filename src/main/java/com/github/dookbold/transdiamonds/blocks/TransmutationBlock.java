@@ -26,13 +26,16 @@ package com.github.dookbold.transdiamonds.blocks;
 
 import com.github.dookbold.transdiamonds.TransDiamonds;
 import com.github.dookbold.transdiamonds.blockentity.TransmutationBlockEntity;
+import com.github.dookbold.transdiamonds.recipes.TransmutationRecipe;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.BasicInventory;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.text.LiteralText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
@@ -40,6 +43,8 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+
+import java.util.Optional;
 
 public class TransmutationBlock extends Block implements BlockEntityProvider {
     public TransmutationBlock(Settings settings) {
@@ -54,9 +59,18 @@ public class TransmutationBlock extends Block implements BlockEntityProvider {
 
     public boolean activate(BlockState blockState, World world, BlockPos blockPos, PlayerEntity player, Hand hand, BlockHitResult blockHitResult) {
         if (world.isClient) return true;
+        if (!world.isClient) {
+            BasicInventory inventory = new BasicInventory(player.getMainHandStack(), player.getOffHandStack());
+            Optional<TransmutationRecipe> match = world.getRecipeManager().getFirstMatch(TransmutationRecipe.Type.INSTANCE, inventory, world);
+            if (match.isPresent()) {
+                player.inventory.offerOrDrop(world, match.get().getOutput().copy());
+                player.getMainHandStack().decrement(1);
+                player.getOffHandStack().decrement(1);
+            } else {
+                player.sendMessage(new LiteralText("No match"));
+            }
+        }
         Inventory blockEntity = (Inventory) world.getBlockEntity(blockPos);
-
-
         return true;
     }
 

@@ -1,0 +1,10 @@
+{
+  "inputA": {
+    "item": "trans_diamonds:trans_diamond"
+  },
+  "inputB": {
+    "item": "minecraft:redstone"
+  },
+  "outputItem": "minecraft:diamond",
+  "outputAmount": "2"
+}

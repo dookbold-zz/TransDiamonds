@@ -26,6 +26,8 @@ package com.github.dookbold.transdiamonds;
 
 import com.github.dookbold.transdiamonds.blocks.TransmutationBlock;
 import com.github.dookbold.transdiamonds.gui.TransmutationBlockController;
+import com.github.dookbold.transdiamonds.recipes.TransmutationRecipe;
+import com.github.dookbold.transdiamonds.recipes.TransmutationRecipeSerializer;
 import com.github.dookbold.transdiamonds.registry.TransBlockRegistration;
 import com.github.dookbold.transdiamonds.registry.TransItemRegistration;
 import net.fabricmc.api.ModInitializer;
@@ -35,6 +37,7 @@ import net.minecraft.container.BlockContext;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -49,6 +52,9 @@ public class TransDiamonds implements ModInitializer {
     public void onInitialize() {
         TransItemRegistration.init();
         TransBlockRegistration.init();
+        Registry.register(Registry.RECIPE_SERIALIZER, TransmutationRecipeSerializer.ID,
+                TransmutationRecipeSerializer.INSTANCE);
+        Registry.register(Registry.RECIPE_TYPE, new Identifier(MOD_ID, TransmutationRecipe.Type.ID), TransmutationRecipe.Type.INSTANCE);
         ContainerProviderRegistry.INSTANCE.registerFactory(TransmutationBlock.IDENTIFIER, (syncId, id, player, buf) -> new TransmutationBlockController(syncId, player.inventory, BlockContext.create(player.world, buf.readBlockPos())));
     }
 }

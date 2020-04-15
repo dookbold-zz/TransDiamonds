@@ -37,9 +37,12 @@ public class TransmutationBlockController extends CottonCraftingController {
 
         WGridPanel root = new WGridPanel();
         setRootPanel(root);
-        root.setSize(200,100);
+        root.setSize(300,100);
         WItemSlot itemSlot = WItemSlot.of(blockInventory, 0);
-        root.add(itemSlot, 4, 1);
+        root.add(itemSlot, 5, 1);
+        root.add(itemSlot, (int) 3, 2);
+        root.add(itemSlot, (int) 7, 2);
+        root.add(this.createPlayerInventoryPanel(), 0, 4);
         root.validate(this);
 
     }
