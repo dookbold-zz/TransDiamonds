@@ -40,6 +40,11 @@ public class TransItemRegistration {
     public static final Item TRANS_AXE = register(new AxeBase(new TransMaterial()), "trans_axe");
     public static final Item TRANS_SWORD = register(new SwordBase(new TransMaterial()), "trans_sword");
     public static final Item TRANS_SHOVEL = register(new ShovelBase(new TransMaterial()), "trans_shovel");
+    public static final Item EMPTY_DIAMOND = register(new Item(defaultSettings()), "empty_diamond");
+    public static final Item LESBIAN_DIAMOND = register(new Item(defaultSettings()), "lesbian_diamond");
+    public static final Item PRIDE_DIAMOND = register(new Item(defaultSettings()), "pride_diamond");
+    public static final Item PANSEXUAL_DIAMOND = register(new Item(defaultSettings()), "pansexual_diamond");
+    public static final Item BISEXUAL_DIAMOND = register(new Item(defaultSettings()), "bisexual_diamond");
 
     public static Item register(Item item, String name) {
         return Registry.register(Registry.ITEM, new Identifier(TransDiamonds.MOD_ID, name), item);

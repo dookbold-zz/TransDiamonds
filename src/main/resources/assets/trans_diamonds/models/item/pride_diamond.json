@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "trans_diamonds:item/trans_diamond"
+    "layer0": "trans_diamonds:item/pride_diamond"
   }
 }

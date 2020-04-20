@@ -59,16 +59,14 @@ public class TransmutationBlock extends Block implements BlockEntityProvider {
 
     public boolean activate(BlockState blockState, World world, BlockPos blockPos, PlayerEntity player, Hand hand, BlockHitResult blockHitResult) {
         if (world.isClient) return true;
-        if (!world.isClient) {
-            BasicInventory inventory = new BasicInventory(player.getMainHandStack(), player.getOffHandStack());
-            Optional<TransmutationRecipe> match = world.getRecipeManager().getFirstMatch(TransmutationRecipe.Type.INSTANCE, inventory, world);
-            if (match.isPresent()) {
-                player.inventory.offerOrDrop(world, match.get().getOutput().copy());
-                player.getMainHandStack().decrement(1);
-                player.getOffHandStack().decrement(1);
-            } else {
-                player.sendMessage(new LiteralText("No match"));
-            }
+        BasicInventory inventory = new BasicInventory(player.getMainHandStack(), player.getOffHandStack());
+        Optional<TransmutationRecipe> match = world.getRecipeManager().getFirstMatch(TransmutationRecipe.Type.INSTANCE, inventory, world);
+        if (match.isPresent()) {
+            player.inventory.offerOrDrop(world, match.get().getOutput().copy());
+            player.getMainHandStack().decrement(1);
+            player.getOffHandStack().decrement(1);
+        } else {
+            player.sendMessage(new LiteralText("No match"));
         }
         Inventory blockEntity = (Inventory) world.getBlockEntity(blockPos);
         return true;

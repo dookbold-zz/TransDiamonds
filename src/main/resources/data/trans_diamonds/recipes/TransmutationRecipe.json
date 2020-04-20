@@ -5,6 +5,9 @@
   "inputB": {
     "item": "minecraft:redstone"
   },
+  "inputC": {
+    "item": "minecraft:glowstone"
+  },
   "outputItem": "minecraft:diamond",
-  "outputAmount": "2"
+  "outputAmount": "1"
 }
